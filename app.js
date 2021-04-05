@@ -162,7 +162,7 @@ ProtectedRoutes.get('/generate', (req, res) => {
           // create a new page
           const page = await browser.newPage()
         
-          await page.goto('http://185.231.155.4:49976/presentation.html', {waitUntil: 'networkidle0'});
+          await page.goto('http://35.176.63.20:3000/presentation.html', {waitUntil: 'networkidle0'});
         
           page.addStyleTag(
             {'content': '@page { size: A4 landscape; }'}

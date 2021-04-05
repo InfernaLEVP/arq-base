@@ -60,6 +60,8 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Sign in</button>
                 </form>
+
+                <div class="btn btn-primary">Generate new version</div>
             </div>
            
            
@@ -158,6 +160,19 @@
                         });
                         return response.json(); // parses JSON response into native JavaScript objects
                     }
+                },
+                generate() {
+                    const token = this.user;
+                    fetch('/generate', {
+                        method: 'get',
+                        headers: {
+                            'access-token': token,
+                        },
+                    })
+                    .then(data => {
+                        console.log(data);
+                        document.getElementById('success').style.display = 'flex';
+                    });
                 }
             });
             app.mount('#app');
