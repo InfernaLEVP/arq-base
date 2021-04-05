@@ -164,9 +164,10 @@
                         return response.json(); // parses JSON response into native JavaScript objects
                     },
                     generate() {
-                        console.log('asd');
+                        
                         const token = this.user;
-                        fetch('/generate', {
+                        console.log(`Token: ${token}`);
+                        fetch('/api/generate', {
                             method: 'get',
                             headers: {
                                 'access-token': token,
