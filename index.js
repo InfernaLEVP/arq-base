@@ -53,7 +53,7 @@
               console.log(parseFloat(value));
 
               if (parseFloat(value) > 10) ; else {
-                t[key] = (parseFloat(value) * 100).toFixed(2) + '%';
+                t[key] = (parseFloat(value) * 100).toFixed(1) + '%';
               }
             }
           }
