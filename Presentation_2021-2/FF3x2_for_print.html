@@ -1,0 +1,96 @@
+
+    <html>
+      <head><title>HTML Pandas Dataframe with CSS</title>
+      <style>
+        .dataframe table    { margin-bottom: 1.4em; 
+                             width: 100%; 
+                             border-collapse: collapse;
+                             border-spacing: 0;
+                             font-family: "Avenir";
+                             }
+        .dataframe th       { font-weight: bold; text-align: left; 
+                             padding: 5px 25px 5px 10px; 
+                             border: 0px;}
+        .dataframe tr > *:nth-child(1) { width:35%; }
+        .dataframe tr:last-child{ border-bottom: 5px solid #f0997a;}
+        .dataframe thead th { background: #f0997a; 
+                             padding: 5px 25px 5px 10px;}
+        .dataframe td       { text-align: left; 
+                             padding: 5px 25px 5px 10px; 
+                             border: 0; }
+        .dataframe th,td,caption { padding: 5px 25px 5px 10px; }
+        .dataframe tbody tr:nth-child(even) td, 
+        .dataframe tbody tr.even td { background: #d2d2d2; }
+        .dataframe tbody tr:nth-child(even) th, 
+        .dataframe tbody tr.even th { background: #d2d2d2; }
+        .dataframe tbody tr:last-child td { background: #f0997a; }
+        .dataframe tbody tr:last-child th { background: #f0997a; }
+        .dataframe tfoot     { font-style: italic; }
+        .dataframe caption   { background: #eee; }
+                              
+         </style>
+      </head>
+      <body><table border="0" cellspacing="0" class="dataframe">
+  <thead>
+    <tr style="text-align: center;">
+      <th></th>
+      <th>Inception</th>
+      <th>2019</th>
+      <th>2020</th>
+      <th>L3M</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Alpha (p.a.)</th>
+      <td>57%</td>
+      <td>13%</td>
+      <td>141%</td>
+      <td>-11%</td>
+    </tr>
+    <tr>
+      <th>Beta</th>
+      <td>0.04</td>
+      <td>0.29</td>
+      <td>0.02</td>
+      <td>0.31</td>
+    </tr>
+    <tr>
+      <th>SMB</th>
+      <td>0.04</td>
+      <td>0.17</td>
+      <td>-0.05</td>
+      <td>-0.05</td>
+    </tr>
+    <tr>
+      <th>HML</th>
+      <td>-0.2</td>
+      <td>-0.08</td>
+      <td>-0.16</td>
+      <td>-0.48</td>
+    </tr>
+    <tr>
+      <th>RMW</th>
+      <td>0.02</td>
+      <td>-0.22</td>
+      <td>0.06</td>
+      <td>0.22</td>
+    </tr>
+    <tr>
+      <th>CMA</th>
+      <td>0.0</td>
+      <td>0.08</td>
+      <td>-0.0</td>
+      <td>0.34</td>
+    </tr>
+  <tr style="height: 25px; ">
+          <th></th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+    </tr>
+  </tbody>
+</table>
+    </body>
+    </html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARQuant Generate</title>
+
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+        .visible{
+            display: block!important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="app">
+        <div class="row">
+          <div class="col align-self-start">
+            
+          </div>
+          <div class="col col-12 align-self-center">
+            <br>
+            <br>
+            <h1>ARQuant Presentation Data Generate</h1>
+            <br>
+            <br>
+            <!-- Login form -->
+            <div v-if="user">
+                <form action="/upload" method="post" enctype="multipart/form-data" id="form" @submit.prevent="upload">
+
+                    <div class="input-group mb-6">
+                        <input type="file" class="form-control" name="filedata" multiple id="filedata">
+                        <label class="input-group-text" for="filedata">Upload</label>
+                    </div>
+                    <br>
+                    <br>
+                    <input type="submit" value="Send" class="btn btn-primary" />
+                </form>
+            </div>
+            <div v-else>
+                <form @submit.prevent="signIn">
+                    <div class="mb-3">
+                        <label for="loginInput" class="form-label">Login</label>
+                        <input type="text" name="login" class="form-control" id="loginInput" aria-describedby="login" v-model="login">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" v-model="password">
+                    </div>
+                    <div id="login-error" style="display: none;">
+                        <div class="alert alert-danger" role="alert">
+                            Wrong login \ password!
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign in</button>
+                </form>
+            </div>
+           
+           
+            <!-- ./Form -->
+          </div>
+          <div class="col align-self-end">
+            
+          </div>
+        </div>
+        <div class="row">
+            <div class="col col-12">
+                <div class="alert alert-success" id="success" style="display: none;" role="alert">
+                    Files uploaded! The presentation will be updated within a minute.
+                </div>
+                <div class="alert alert-danger" id="danger" style="display: none;" role="alert">
+                    Something went wrong... Try again
+                </div>
+            </div>
+        </div>
+      </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+
+            const app = Vue.createApp({
+                data() {
+                    return {
+                        user: null,
+                        login: '',
+                        password: ''
+                    }
+                },
+                mounted(){
+                    console.log('Run');
+                },
+                computed: {
+                },
+                methods: {
+                    signIn(e) {
+                        const loginFormData = {
+                            username: this.login,
+                            password: this.password
+                        };
+                        this.postData('/authenticate', loginFormData, this.user, 'login')
+                        .then(data => {
+                            console.log(data); // JSON data parsed by `data.json()` call
+                            if(data.message === 'done'){
+                                this.user = data.token; 
+                            }else{
+                                document.getElementById('login-error').classList.add('visible');
+                                setTimeout(() => {
+                                    document.getElementById('login-error').classList.remove('visible');
+                                }, 4000);
+                            }
+                        });
+                    },
+                    upload(e) {
+                        const form = document.getElementById('form');
+                        const formData = new FormData(form);
+                        const token = this.user;
+                        fetch('/api/upload', {
+                            method: 'post',
+                            headers: {
+                                'access-token': token,
+                            },
+                            body: formData,
+                        })
+                        .then(data => {
+                            console.log(data);
+                            document.getElementById('success').style.display = 'flex';
+                        });
+
+                    },
+                    postData: async(url = '', data = {}, token, type) => {
+                        let sendData;
+                        if(type === 'login'){
+                            sendData = JSON.stringify(data);
+                        }else{
+                            sendData = data;
+                        }
+                        // Default options are marked with *
+                        console.warn(`Token: ${token}`);
+                        const response = await fetch(url, {
+                            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                            mode: 'cors', // no-cors, *cors, same-origin
+                            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                            credentials: 'same-origin', // include, *same-origin, omit
+                            headers: {
+                            'Content-Type': 'application/json',
+                            'access-token': token,
+                            // 'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            redirect: 'follow', // manual, *follow, error
+                            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+                            body: sendData // body data type must match "Content-Type" header
+                        });
+                        return response.json(); // parses JSON response into native JavaScript objects
+                    }
+                }
+            });
+            app.mount('#app');
+
+
+            // document.getElementById('form').addEventListener('submit', (e) => {
+            //     e.preventDefault();
+            //     const form = document.getElementById('form');
+            //     const formData = new FormData(form);
+
+            //     fetch('/upload', {
+            //         method: 'post',
+            //         body: formData,
+            //     })
+            //     .then(data => {
+            //         console.log(data);
+            //         document.getElementById('success').style.display = 'flex';
+            //     });
+            // });
+
+        });
+    </script>
+</body>
+</html>

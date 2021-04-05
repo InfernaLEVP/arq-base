@@ -1,0 +1,201 @@
+
+    <html>
+      <head><title>HTML Pandas Dataframe with CSS</title>
+      <style>
+        .dataframe table    { margin-bottom: 1.4em; 
+                             width: 100%; 
+                             border-collapse: collapse;
+                             border-spacing: 0;
+                             font-family: "Avenir";
+                             }
+        .dataframe th       { font-weight: bold; text-align: left; 
+                             padding: 5px 25px 5px 10px; 
+                             border: 0px;}
+        .dataframe tr > *:nth-child(1) { width:35%; }
+        .dataframe tr:last-child{ border-bottom: 5px solid #f0997a;}
+        .dataframe thead th { background: #f0997a; 
+                             padding: 5px 25px 5px 10px;}
+        .dataframe td       { text-align: left; 
+                             padding: 5px 25px 5px 10px; 
+                             border: 0; }
+        .dataframe th,td,caption { padding: 5px 25px 5px 10px; }
+        .dataframe tbody tr:nth-child(even) td, 
+        .dataframe tbody tr.even td { background: #d2d2d2; }
+        .dataframe tbody tr:nth-child(even) th, 
+        .dataframe tbody tr.even th { background: #d2d2d2; }
+        .dataframe tbody tr:last-child td { background: #f0997a; }
+        .dataframe tbody tr:last-child th { background: #f0997a; }
+        .dataframe tfoot     { font-style: italic; }
+        .dataframe caption   { background: #eee; }
+                              
+         </style>
+      </head>
+      <body><table border="0" cellspacing="0" class="dataframe">
+  <thead>
+    <tr style="text-align: center;">
+      <th></th>
+      <th>Inception</th>
+      <th>2019</th>
+      <th>2020</th>
+      <th>2021</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Start</th>
+      <td>2018-03-01</td>
+      <td>2019-01-02</td>
+      <td>2020-01-02</td>
+      <td>2021-01-04</td>
+    </tr>
+    <tr>
+      <th>End</th>
+      <td>2021-02-26</td>
+      <td>2019-12-31</td>
+      <td>2020-12-31</td>
+      <td>2021-02-26</td>
+    </tr>
+    <tr>
+      <th>Growth</th>
+      <td>328.6%</td>
+      <td>22.5%</td>
+      <td>148.0%</td>
+      <td>-0.3%</td>
+    </tr>
+    <tr>
+      <th>Return annualized</th>
+      <td>60.1%</td>
+      <td>22.5%</td>
+      <td>148.0%</td>
+      <td>-0.3%</td>
+    </tr>
+    <tr>
+      <th>Volatility annualized</th>
+      <td>20.2%</td>
+      <td>14.7%</td>
+      <td>27.7%</td>
+      <td>5.8%</td>
+    </tr>
+    <tr>
+      <th>Sharpe Ratio</th>
+      <td>2.97</td>
+      <td>1.53</td>
+      <td>5.34</td>
+      <td>-0.05</td>
+    </tr>
+    <tr>
+      <th>Calmar</th>
+      <td>7.86</td>
+      <td>2.85</td>
+      <td>19.81</td>
+      <td>-0.43</td>
+    </tr>
+    <tr>
+      <th>Sortino</th>
+      <td>4.87</td>
+      <td>2.59</td>
+      <td>7.19</td>
+      <td>-0.07</td>
+    </tr>
+    <tr>
+      <th>Kelly criterion</th>
+      <td>0.21</td>
+      <td>0.14</td>
+      <td>0.27</td>
+      <td>-0.0</td>
+    </tr>
+    <tr>
+      <th>Skew</th>
+      <td>2.05</td>
+      <td>2.16</td>
+      <td>1.77</td>
+      <td>0.35</td>
+    </tr>
+    <tr>
+      <th>Kurtosis</th>
+      <td>16.56</td>
+      <td>20.13</td>
+      <td>12.04</td>
+      <td>3.07</td>
+    </tr>
+    <tr>
+      <th>VaR (5%)</th>
+      <td>0.7%</td>
+      <td>0.5%</td>
+      <td>1.2%</td>
+      <td>1.4%</td>
+    </tr>
+    <tr>
+      <th>CVaR (5%)</th>
+      <td>2.1%</td>
+      <td>1.7%</td>
+      <td>2.6%</td>
+      <td>1.8%</td>
+    </tr>
+    <tr>
+      <th>Max Drawdown</th>
+      <td>-8.0%</td>
+      <td>-8.0%</td>
+      <td>-7.5%</td>
+      <td>-4.3%</td>
+    </tr>
+    <tr>
+      <th>Recovery (days)</th>
+      <td>167</td>
+      <td>167</td>
+      <td>48</td>
+      <td>43</td>
+    </tr>
+    <tr>
+      <th>Best Day</th>
+      <td>10.6%</td>
+      <td>7.0%</td>
+      <td>10.6%</td>
+      <td>2.1%</td>
+    </tr>
+    <tr>
+      <th>Worst Day</th>
+      <td>-5.9%</td>
+      <td>-3.7%</td>
+      <td>-5.9%</td>
+      <td>-1.9%</td>
+    </tr>
+    <tr>
+      <th>Mean Return daily</th>
+      <td>0.19%</td>
+      <td>0.08%</td>
+      <td>0.36%</td>
+      <td>-0.0%</td>
+    </tr>
+    <tr>
+      <th>Average Win daily</th>
+      <td>1.0%</td>
+      <td>0.6%</td>
+      <td>1.4%</td>
+      <td>0.8%</td>
+    </tr>
+    <tr>
+      <th>Average Loss daily</th>
+      <td>-0.6%</td>
+      <td>-0.5%</td>
+      <td>-0.8%</td>
+      <td>-0.7%</td>
+    </tr>
+    <tr>
+      <th>Win rate</th>
+      <td>52.2%</td>
+      <td>52.4%</td>
+      <td>53.1%</td>
+      <td>44.7%</td>
+    </tr>
+  <tr style="height: 25px; ">
+          <th></th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+    </tr>
+  </tbody>
+</table>
+    </body>
+    </html>
