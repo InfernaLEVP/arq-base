@@ -162,7 +162,8 @@ ProtectedRoutes.get('/generate', (req, res) => {
           // create a new page
           const page = await browser.newPage()
         
-          await page.goto('http://35.176.63.20:3000/presentation.html', {waitUntil: 'networkidle0'});
+          // await page.goto('http://35.176.63.20:3000/presentation.html', {waitUntil: 'networkidle0'});
+          await page.goto('http://localhost:3000/presentation.html', {waitUntil: 'networkidle0'});
         
           page.addStyleTag(
             {'content': '@page { size: A4 landscape; }'}
@@ -187,6 +188,8 @@ ProtectedRoutes.get('/generate', (req, res) => {
         
           // close the browser
           await browser.close()
+
+          console.log('Presentatin Generated');
         })()
 
     }, 10000);
