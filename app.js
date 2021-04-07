@@ -12,6 +12,10 @@ const config = require('./configurations/config');
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 app.use(express.static(__dirname));
 
 //set secret
@@ -164,6 +168,8 @@ ProtectedRoutes.get('/generate', (req, res) => {
         
           // await page.goto('http://35.176.63.20:3000/presentation.html', {waitUntil: 'networkidle0'});
           await page.goto('http://localhost:3000/presentation.html', {waitUntil: 'networkidle0'});
+
+          await sleep(5000);
         
           page.addStyleTag(
             {'content': '@page { size: A4 landscape; }'}
@@ -192,11 +198,11 @@ ProtectedRoutes.get('/generate', (req, res) => {
           console.log('Presentatin Generated');
         })()
 
-    }, 10000);
+    }, 20000);
  
 });
 
-ProtectedRoutes.post("/upload", upload.array('filedata', 4), (req, res, next) => {
+ProtectedRoutes.post("/upload", upload.array('filedata', 5), (req, res, next) => {
     const files = req.files
     if (!files) {
       const error = new Error('Please choose files')
