@@ -48,7 +48,7 @@ dicclrs={'arquant':'#ea6639',   # '#dc6d45'
          'dates': '#afb1b2',    # '#d6d7d8'
          'plotname': 'black'}
 
-period_list_plot=['L12M'] #for slides 5 and 6
+period_list_plot=['Inception'] #for slides 5 and 6
 periods_stats=['Inception', 
                # '2018', 
                '2019', 
@@ -62,10 +62,10 @@ periods_ff=['Inception', #for slides 7 and 8
          # '2018', 
          '2019', 
          '2020', 
-         # '2021', 
+         '2021', 
           # 'L12M', 
           # 'YTD',
-           'L3M', 
+          # 'L3M', 
          # 'L1M'
          ]  
 
@@ -74,7 +74,7 @@ from Slides_for_print_function import stats_periods_for_print
 
 ak_stats=pd.read_pickle(maindir+datadir+'Stats.pkl')
 ak_stats_for_print=stats_periods_for_print(ak_stats)
-ak_stats_for_print.to_csv(maindir+datadir+'Stats for print.csv')
+ak_stats_for_print.to_csv(maindir+datadir+'Stats_for_print.csv')
 # Make HTML with company styling
 reload(Slides_for_print_function)
 from Slides_for_print_function import stat_html
@@ -98,7 +98,7 @@ stat_html(bt[periods_ff], maindir+datadir+'FF3x2_for_print')
 # reload(Slides_for_print_function)
 from Slides_for_print_function import f_fsnet, factsheet_html
 feestring='1.0-20-5'
-fs_net=pd.read_csv(maindir+datadir+'Fact Sheet (after fees '+feestring+').csv', index_col=[0])
+fs_net=pd.read_csv(maindir+datadir+'Fact_Sheet_after_fees.csv', index_col=[0])
 factsheet_html(f_fsnet(fs_net), maindir+datadir+'Fact_sheet_after_fees')
 
 
@@ -127,6 +127,14 @@ for period in periods.keys():
 from Slides_for_print_function import plot_for_print
 
 dfs=pd.read_pickle(maindir+datadir+'ARQuant vs Benchmarks.pkl')
+
+print(dfs)
+
+pDate=dfs.to_json()
+print(pDate)
+import json
+with open('pMonth.json', 'w') as outfile:
+    json.dump(pDate, outfile)
 
 periods=period_index(dfs, period_list_plot) #New indexies for L12M
 

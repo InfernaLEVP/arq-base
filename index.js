@@ -17,18 +17,19 @@
           month: undefined,
           year: undefined,
           slide_05_heading: undefined,
-          slide_06_heading: undefined
+          slide_06_heading: undefined,
+          pDate: undefined
         };
       },
 
       async mounted() {
-        await d3.csv("stats.csv", data => {
+        await d3.csv("Presentation_2021-2/Stats_for_print.csv", data => {
           if (typeof data === 'object') {
             this.rows.push(data);
           }
         });
         this.cols = Object.keys(this.rows[0]);
-        await d3.csv("modelStats.csv", data => {
+        await d3.csv("Presentation_2021-2/FF3x2.csv", data => {
           if (typeof data === 'object') {
             this.modelRows.push(data);
           }
@@ -38,7 +39,7 @@
         const d = new Date();
         this.month = monthNames[d.getMonth()];
         this.year = new Date().getFullYear();
-        await d3.csv("returnStats.csv", data => {
+        await d3.csv("Presentation_2021-2/Fact_Sheet_after_fees.csv", data => {
           if (typeof data === 'object') {
             this.returnRows.push(data);
           }
@@ -72,6 +73,7 @@
         };
 
         httpRequest.send();
+
         const httpRequest2 = new XMLHttpRequest();
         httpRequest2.open('GET', 'slide2.txt', true);
 
@@ -86,6 +88,21 @@
         };
 
         httpRequest2.send();
+
+        const httpRequest3 = new XMLHttpRequest();
+        httpRequest3.open('GET', 'pMonth.json', true);
+
+        httpRequest3.onreadystatechange = () => {
+          // Process the server response here.
+          if (httpRequest3.status === 200) {
+
+            const data = JSON.parse(httpRequest3.response);
+            console.log(data);
+          }
+        };
+
+        httpRequest3.send();
+
       },
 
       methods: {}
