@@ -203,7 +203,7 @@ ProtectedRoutes.get('/generate', (req, res) => {
  
 });
 
-ProtectedRoutes.post("/upload", upload.array('filedata', 5), (req, res, next) => {
+ProtectedRoutes.post("/upload", upload.array('filedata', 8), (req, res, next) => {
     const files = req.files
     if (!files) {
       const error = new Error('Please choose files')

@@ -128,6 +128,9 @@
         </div>
         <div class="row" style="margin-top: 30px;">
             <div class="col col-12">
+                <div class="alert alert-success" id="files" style="display: none;" role="alert">
+                    Files updated.
+                </div>
                 <div class="alert alert-success" id="success" style="display: none;" role="alert">
                     Presentation updated.
                 </div>
@@ -186,7 +189,10 @@
                         })
                         .then(data => {
                             console.log(data);
-                            document.getElementById('success').style.display = 'flex';
+                            document.getElementById('files').style.display = 'flex';
+                            setTimeout(() => {
+                                document.getElementById('files').style.display = 'none';
+                            }, 3000);
                         });
 
                     },
