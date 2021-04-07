@@ -4,7 +4,7 @@
 }((function () { 'use strict';
 
   window.onload = () => {
-    console.log('Hi');
+    
     const app = Vue.createApp({
       data() {
         return {
@@ -29,12 +29,14 @@
           }
         });
         this.cols = Object.keys(this.rows[0]);
-        await d3.csv("Presentation_2021-2/FF3x2.csv", data => {
+        
+        await d3.csv("Presentation_2021-2/FF.csv", data => {
           if (typeof data === 'object') {
             this.modelRows.push(data);
           }
         });
         this.modelCols = Object.keys(this.modelRows[0]);
+        
         const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         const d = new Date();
         this.month = monthNames[d.getMonth()];
@@ -47,11 +49,11 @@
         this.returnCols = Object.keys(this.returnRows[0]);
         this.returnRows.forEach((rCol, index) => {
           for (let [key, value] of Object.entries(rCol)) {
-            // console.log(value);
+            
             if (value) {
               // value = value * 100;
               const t = this.returnRows[index];
-              console.log(parseFloat(value));
+              
 
               if (parseFloat(value) > 10) ; else {
                 t[key] = (parseFloat(value) * 100).toFixed(1) + '%';
@@ -67,7 +69,7 @@
           // Process the server response here.
           if (httpRequest.status === 200) {
             // Perfect!
-            console.log(httpRequest.response);
+            
             this.slide_05_heading = httpRequest.response.replace('"', '').replace('"', '');
           }
         };
@@ -89,19 +91,40 @@
 
         httpRequest2.send();
 
-        const httpRequest3 = new XMLHttpRequest();
-        httpRequest3.open('GET', 'pMonth.json', true);
+        // const httpRequest3 = new XMLHttpRequest();
+        // httpRequest3.open('GET', 'pFF.json', true);
 
-        httpRequest3.onreadystatechange = () => {
-          // Process the server response here.
-          if (httpRequest3.status === 200) {
+        // httpRequest3.onreadystatechange = () => {
+        //   // Process the server response here.
+        //   if (httpRequest3.status === 200) {
 
-            const data = JSON.parse(httpRequest3.response);
-            console.log(data);
-          }
-        };
+        //     console.warn(httpRequest3.response);
+        //     const data = JSON.parse(httpRequest3.response);
+        //     // console.log(data);
 
-        httpRequest3.send();
+        //     this.modelRows.push(data);
+        //     this.modelCols = Object.keys(this.modelRows[0]);
+        //   }
+        // };
+
+        // fetch('/pFF.json')
+        //   .then(response => response.json())
+        //   .then(data => {
+
+            
+        //     const modelTableData = JSON.parse(data);
+        //     const modelTableDataParsed = Object.entries(res);
+
+        //     for(let i = 0; i < modelTableDataParsed.length; i++){
+        //       const colName = modelTableDataParsed[i];
+        //       this.modelCols.push(colName[0]);
+        //     }
+        //     console.log(Object.entries(res));
+            
+        //     this.modelCols = Object.keys(this.modelRows[0]);
+        //   });
+
+        // httpRequest3.send();
 
       },
 
