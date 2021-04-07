@@ -15,11 +15,60 @@
         .visible{
             display: block!important;
         }
+        body{
+            overflow: hidden;
+        }
+        #spinner{
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,.4);
+            z-index: 99;
+            visibility: hidden;
+        }
+        #spinner > div{
+            
+            width: 80px;
+            height: 80px;
+
+            border: 2px solid #f3f3f3;
+            border-top:3px solid #f25a41;
+            border-radius: 100%;
+
+            position: absolute;
+            top:0;
+            bottom:0;
+            left:0;
+            right: 0;
+            margin: auto;
+            z-index: 9999;
+
+            animation: spin 1s infinite linear;
+        }
+
+        @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        } to {
+            transform: rotate(360deg);
+        }
+        }
+
+        #spinner.show {
+            visibility: visible;
+        }
     </style>
 </head>
 <body>
 
     <div class="container" id="app">
+        <div id="spinner">
+            <div></div>
+        </div> 
         <div class="row">
           <div class="col align-self-start">
             
@@ -40,11 +89,14 @@
                     </div>
                     <br>
                     <br>
-                    <input type="submit" value="Send" class="btn btn-primary" />
+                    <input type="submit" value="Send Files" class="btn btn-primary" />
                 </form>
                 <br>
                 <br>
-                <div class="btn btn-primary" @click="generate">Generate new version</div>
+                <div>
+                    <div class="btn btn-primary" style="margin-right: 25px;" @click="generate">Generate new version</div>
+                    <a class="btn btn-primary" href="/ARQuant_Presentation.pdf" target="_blank" id="download">Download Presentation</a>
+                </div>
             </div>
             <div v-else>
                 <form @submit.prevent="signIn">
@@ -74,10 +126,10 @@
             
           </div>
         </div>
-        <div class="row">
+        <div class="row" style="margin-top: 30px;">
             <div class="col col-12">
                 <div class="alert alert-success" id="success" style="display: none;" role="alert">
-                    Files uploaded! The presentation will be updated within a minute.
+                    Presentation updated.
                 </div>
                 <div class="alert alert-danger" id="danger" style="display: none;" role="alert">
                     Something went wrong... Try again
@@ -167,6 +219,10 @@
                         
                         const token = this.user;
                         console.log(`Token: ${token}`);
+
+                        const spinner = document.getElementById("spinner");
+                        spinner.className = "show";
+
                         fetch('/api/generate', {
                             method: 'get',
                             headers: {
@@ -176,6 +232,8 @@
                         .then(data => {
                             console.log(data);
                             document.getElementById('success').style.display = 'flex';
+                            document.getElementById('download').classList.add('btn-success');
+                            spinner.className = spinner.className.replace("show", "");
                         });
                     }
                 },

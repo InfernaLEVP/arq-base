@@ -151,7 +151,7 @@ ProtectedRoutes.get('/generate', (req, res) => {
     python.on('close', (code) => {
         console.log(`child process close all stdio with code ${code}`);
         // send data to browser
-        res.send(dataToSend)
+        // res.send(dataToSend)
     });
 
     setTimeout(() => {
@@ -196,6 +196,7 @@ ProtectedRoutes.get('/generate', (req, res) => {
           await browser.close()
 
           console.log('Presentatin Generated');
+          res.send('Presentatin Generated');
         })()
 
     }, 20000);
