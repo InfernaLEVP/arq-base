@@ -129,6 +129,7 @@ for period in periods.keys():
 from Slides_for_print_function import plot_for_print
 
 dfs=pd.read_pickle(maindir+datadir+'ARQuant vs Benchmarks.pkl')
+dfs.to_csv(maindir+datadir+'month.csv')
 
 periods=period_index(dfs, period_list_plot) #New indexies for L12M
 

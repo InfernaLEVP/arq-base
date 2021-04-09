@@ -237,10 +237,13 @@
                         })
                         .then(data => {
                             console.log(data);
+                        });
+
+                        setTimeout(() => {
                             document.getElementById('success').style.display = 'flex';
                             document.getElementById('download').classList.add('btn-success');
                             spinner.className = spinner.className.replace("show", "");
-                        });
+                        }, 60000);
                     }
                 },
             });

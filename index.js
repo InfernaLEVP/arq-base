@@ -18,7 +18,8 @@
           year: undefined,
           slide_05_heading: undefined,
           slide_06_heading: undefined,
-          pDate: undefined
+          pDate: undefined,
+          parsedMonth: []
         };
       },
 
@@ -38,9 +39,25 @@
         this.modelCols = Object.keys(this.modelRows[0]);
         
         const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        const d = new Date();
-        this.month = monthNames[d.getMonth()];
+        // const d = new Date();
+        
+        // *
+
+        await d3.csv("Presentation_2021-2/month.csv", data => {
+          if (typeof data === 'object') {
+            this.parsedMonth.push(data);
+          }
+        });
+        let calculated = this.parsedMonth[this.parsedMonth.length - 1];
+        console.log(`Calculated: ${calculated.Date}`)
+        calculated = calculated.Date.split('-');
+        const mDigit = parseInt(calculated[1]);
+
+        this.month = monthNames[mDigit];
         this.year = new Date().getFullYear();
+
+        // *
+
         await d3.csv("Presentation_2021-2/Fact_Sheet_after_fees.csv", data => {
           if (typeof data === 'object') {
             this.returnRows.push(data);
